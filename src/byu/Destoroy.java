@@ -13,31 +13,28 @@ import model.Task;
 import utils.DBUtil;
 
 /**
- * Servlet implementation class Destroy
+ * Servlet implementation class Destoroy
  */
-@WebServlet("/Destroy")
-public class Destroy extends HttpServlet {
+@WebServlet("/Destoroy")
+public class Destoroy extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Destroy() {
+    public Destoroy() {
         super();
         // TODO Auto-generated constructor stub
     }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
-	 */
-	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	    String _token = request.getParameter("_token");
+		String _token = request.getParameter("_token");
         if(_token != null && _token.equals(request.getSession().getId())) {
             EntityManager em = DBUtil.createEntityManager();
-            
+           
             Task m = em.find(Task.class, (Integer)(request.getSession().getAttribute("message_id")));
 
             em.getTransaction().begin();
@@ -46,8 +43,9 @@ public class Destroy extends HttpServlet {
             em.close();
             
             request.getSession().removeAttribute("task_id");
-            
             response.sendRedirect(request.getContextPath() + "/index");
+        }
+		// TODO Auto-generated method stub
 	}
 
 }
